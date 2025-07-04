@@ -26,6 +26,7 @@ public class JavaAssetRetriever {
 
                 Files.copy(location, destination, StandardCopyOption.REPLACE_EXISTING);
             }
+            is.close();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

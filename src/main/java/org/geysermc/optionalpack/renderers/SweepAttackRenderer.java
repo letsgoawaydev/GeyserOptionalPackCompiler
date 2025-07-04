@@ -11,8 +11,18 @@ import java.util.List;
 
 import static org.geysermc.optionalpack.OptionalPack.CLIENT_JAR;
 
-public class SweepAttackRenderer {
-    public static List<String> spritePaths = List.of(
+public class SweepAttackRenderer implements Renderer {
+    @Override
+    public String getName() {
+        return "Sweep Attack";
+    }
+
+    @Override
+    public String getDestination() {
+        return "textures/geyser/particle/sweep_attack.png";
+    }
+
+    public final List<String> spritePaths = List.of(
             "assets/minecraft/textures/particle/sweep_0.png",
             "assets/minecraft/textures/particle/sweep_1.png",
             "assets/minecraft/textures/particle/sweep_2.png",
@@ -23,7 +33,7 @@ public class SweepAttackRenderer {
             "assets/minecraft/textures/particle/sweep_7.png"
     );
 
-    public static BufferedImage render() throws IOException {
+    public final BufferedImage render() throws IOException {
         List<BufferedImage> sprites = new ArrayList<>();
         for (String path : spritePaths) {
             // Retrieve the image from the client jar
