@@ -11,7 +11,7 @@ import java.util.zip.ZipInputStream;
 public class OptionalPack {
     public static final Path TEMP_PATH = Path.of("temp-pack/");
 
-    public static final Path WORKING_PATH = Path.of("temp-pack/pack/");
+    public static final Path WORKING_PATH = Path.of("temp-pack/optionalpack/");
     public static void main(String[] args) {
         try {
             log("Extracting pre-made optional pack data to folder...");

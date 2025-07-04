@@ -1,0 +1,3 @@
+[submodule "src/main/resources/optionalpack"]
+	path = src/main/resources/optionalpack
+	url = https://github.com/GeyserMC/GeyserOptionalPack/
