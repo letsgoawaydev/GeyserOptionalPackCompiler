@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'org.example'
+group = 'org.geysermc'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -16,4 +16,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.geysermc.optionalpack.OptionalPack'
+    }
 }
