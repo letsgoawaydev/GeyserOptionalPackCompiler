@@ -1,5 +1,8 @@
 package org.geysermc.optionalpack;
 
+import org.geysermc.optionalpack.renderers.SweepAttackRenderer;
+
+import javax.imageio.ImageIO;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,21 +13,38 @@ import java.util.zip.ZipInputStream;
 
 public class OptionalPack {
     public static final Path TEMP_PATH = Path.of("temp-pack/");
-
     public static final Path WORKING_PATH = Path.of("temp-pack/optionalpack/");
+    public static ZipFile CLIENT_JAR;
+
     public static void main(String[] args) {
         try {
+            log("===GeyserOptionalPack Compiler===");
+
+            /* Step 1: Extract the GeyserOptionalPack data to a working folder */
+
             log("Extracting pre-made optional pack data to folder...");
             extractOptionalPackDataToFolder();
+
+            // todo: maybe update this to something more recent e.g 1.21.7
+            /* Step 2: Download the 1.16 client.jar and copy all files needed to working folder */
 
             log("Downloading client.jar from Mojang...");
             InputStream in = HTTP.request("https://launcher.mojang.com/v1/objects/37fd3c903861eeff3bc24b71eed48f828b5269c8/client.jar");
             Path jarFile = Path.of("client.jar");
             Files.copy(in, jarFile, StandardCopyOption.REPLACE_EXISTING);
 
-            ZipFile clientJar = new ZipFile(jarFile.toFile());
-            JavaAssetRetriever.extract(clientJar);
+            CLIENT_JAR = new ZipFile(jarFile.toFile());
+            JavaAssetRetriever.extract(CLIENT_JAR);
 
+            /* Step 3: Rendering sprites in a format that we use in the resource pack */
+            log("Rendering Sweep Attack...");
+            File sweepAttackParticle = WORKING_PATH.resolve("textures/geyser/particle/sweep_attack.png").toFile();
+            if (sweepAttackParticle.mkdirs()) {
+                ImageIO.write(SweepAttackRenderer.render(), "PNG", sweepAttackParticle);
+            }
+            /* Step 4: Compile Resource Pack folder into a .mcpack file */
+
+            /* Step 5: cleanup temporary folders and files */
 
         } catch (Exception e) {
             e.printStackTrace();

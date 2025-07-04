@@ -32,7 +32,7 @@ public class JavaAssetRetriever {
         }
     }
 
-    public InputStream get(ZipFile clientJar, String path) {
+    public static InputStream get(ZipFile clientJar, String path) {
         try {
             return clientJar.getInputStream(clientJar.getEntry(path));
         } catch (IOException e) {
